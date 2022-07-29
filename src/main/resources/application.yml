@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:experimental
+    username: admin
+    password: admin
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+
+server:
+  servlet:
+    context-path: "/api/v1"
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /api-docs/swagger-ui.html
