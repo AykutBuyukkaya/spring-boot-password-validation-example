@@ -42,6 +42,6 @@ $ mvn clean install
 ## :clipboard: Run With Java
 
 ```console
-$ java -jar target/url-shortener-0.0.1-SNAPSHOT.jar
+$ java -jar target/java-password-validation-example-0.0.1-SNAPSHOT.jar
 ```
 
