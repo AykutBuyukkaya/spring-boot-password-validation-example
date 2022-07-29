@@ -4,6 +4,15 @@ This is the GitHub repository for my blogpost published on aykutbuyukkaya.codes.
 
 You can find the exact post link [here](https://www.aykutbuyukkaya.codes/how-to-validate-passwords-with-constraints-in-java-spring/).
 
+Password rules are as follows:
+
+* Minimum 10 maximum 128 characters.
+* At least one English uppercase letter.
+* At least one English lowercase letter.
+* At least one digit character.
+* At least one special character.
+* No whitespaces are allowed.
+
 ### Using Tools & Technologies
 
 #### Backend
@@ -17,9 +26,9 @@ You can find the exact post link [here](https://www.aykutbuyukkaya.codes/how-to-
 
 These are APIs that we need to provide:
 
-| Method   | Route                             | Parameter Type | Parameter Info                                                           | Description                          |
-|----------|-----------------------------------|----------------|--------------------------------------------------------------------------|--------------------------------------|
-| `POST`   | {{baseUrl}}/authentication/signup | Body           | {"email": "string","password": "string"}                                 | Creating Shortened Url               |
+| Method   | Route                             | Parameter Type | Parameter Info                                                           | Description                                    |
+|----------|-----------------------------------|----------------|--------------------------------------------------------------------------|------------------------------------------------|
+| `POST`   | {{baseUrl}}/authentication/signup | Body           | {"email": "string","password": "string"}                                 | User sign up process with password validation. |
                                                                                                                              
 
 ## :package: Package With Maven
