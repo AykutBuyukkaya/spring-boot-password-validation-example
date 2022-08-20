@@ -1,5 +1,6 @@
 package com.aykutbuyukaya.javapasswordvalidationexample.controller;
 
+import com.aykutbuyukaya.javapasswordvalidationexample.exception.InvalidRequestParameterException;
 import com.aykutbuyukaya.javapasswordvalidationexample.model.entity.User;
 import com.aykutbuyukaya.javapasswordvalidationexample.model.reponse.SignupResponse;
 import com.aykutbuyukaya.javapasswordvalidationexample.model.request.SignupRequest;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.Instant;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/authentication")
@@ -24,7 +26,8 @@ public class SignupController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<SignupResponse> signUp(@RequestBody @Valid SignupRequest request) {
+    public ResponseEntity<SignupResponse> signup(@RequestBody @Valid SignupRequest request,
+                                                 @RequestParam(defaultValue = "en-us") String lang) {
 
         SignupResponse response = SignupResponse.builder()
                 .user(userRepository.save(new User(request.getEmail(), request.getPassword())))
@@ -40,9 +43,21 @@ public class SignupController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public SignupResponse handlePasswordValidationException(MethodArgumentNotValidException e) {
 
+
         //Returning password error message as a response.
         return SignupResponse.builder()
-                .message(String.join(",", e.getBindingResult().getFieldError().getDefaultMessage()))
+                .message(Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage())
+                .timestamp(Instant.now())
+                .build();
+
+    }
+
+    @ExceptionHandler(InvalidRequestParameterException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public SignupResponse handleInvalidRequestParameterResponse(InvalidRequestParameterException e) {
+
+        return SignupResponse.builder()
+                .message(e.getMessage())
                 .timestamp(Instant.now())
                 .build();
 
