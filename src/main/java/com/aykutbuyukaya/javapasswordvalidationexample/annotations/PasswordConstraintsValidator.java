@@ -67,8 +67,8 @@ public class PasswordConstraintsValidator implements ConstraintValidator<Passwor
 
     private MessageResolver generateMessageResolver() {
 
-        String lang = Optional.of(httpServletRequest.getParameter("lang"))
-                .orElseThrow(() -> new RuntimeException("Lang parameter cannot be null!"));
+        String lang = Optional.ofNullable(httpServletRequest.getParameter("lang"))
+                .orElseThrow(() -> new InvalidRequestParameterException("Lang parameter cannot be null!"));
 
         Properties props = new Properties();
 
